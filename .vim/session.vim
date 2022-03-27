@@ -9,13 +9,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 Cargo.toml
-badd +4 lists/src/lib.rs
-badd +1 lists/src/first.rs
+badd +24 lists/src/lib.rs
+badd +63 lists/src/first.rs
+badd +2 rust_toolchain.toml
 argglobal
 %argdel
-edit lists/src/first.rs
 argglobal
-balt lists/src/lib.rs
+enew
+balt lists/src/first.rs
 setlocal fdm=manual
 setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
@@ -23,15 +24,7 @@ setlocal fdi=#
 setlocal fdl=5
 setlocal fml=1
 setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 4 - ((3 * winheight(0) + 23) / 47)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 4
-normal! 0
+setlocal nofen
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
